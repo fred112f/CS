@@ -1,0 +1,22 @@
+import socket, random
+target=random.randrange(1,101)
+sock = socket.socket()
+host = input('Enter an ip: ')
+port = 50007
+sock.bind((host, port))
+print ("I am thinking of the number "+str(target))
+
+sock.listen(5)
+conn = None
+
+while True:
+   if conn is None:
+       print ('[Waiting for connection...]')
+       conn, addr = sock.accept()
+       print('Got connection from', addr)
+   else:
+       print ('[Waiting for response...]')
+       print ("User guessed: "+str(conn.recv(1024)))
+       msg = str((target))
+       conn.send(msg.encode('UTF-8'))
+
