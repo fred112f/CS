@@ -1,6 +1,6 @@
 import socket
 sock = socket.socket()
-host = '172.21.50.235'
+host = input('Enter an ip: ')
 port = 12221
 count= 0
 wrong=0
