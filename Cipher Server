@@ -1,0 +1,19 @@
+import socket	
+sock_clients= socket.socket()
+host = input('Enter an ip: ')
+port= 50008
+sock_clients.bind((host, port))
+sock_clients.listen(5)
+clients=[]
+while True:
+	client=0
+	client_socket,addr=sock_clients.accept()
+	clients.append(client_socket)
+	client=client+1
+	if client==0:
+		print ("Waiting for cipher code...")
+	if client==1:
+		decode=sock_clients.recv(1024)
+		msg=str(decode.decode('UTF-8'))
+		print (msg)
+		client.send(msg.encode('UTF-8'))
