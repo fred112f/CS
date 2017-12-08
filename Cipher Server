@@ -7,13 +7,14 @@ sock_clients.listen(5)
 clients=[]
 while True:
 	client=0
+	if client==0:
+		print ("Waiting for cipher code...")
 	client_socket,addr=sock_clients.accept()
 	clients.append(client_socket)
 	client=client+1
-	if client==0:
-		print ("Waiting for cipher code...")
-	if client==1:
-		decode=sock_clients.recv(1024)
-		msg=str(decode.decode('UTF-8'))
+	if client>0 and client_socket in clients:
+		decode=client_socket.recv(1024).decode('UTF-8')
+		msg=str(decode)
 		print (msg)
-		client.send(msg.encode('UTF-8'))
+		client_socket.send(msg.encode('UTF-8'))
+		client=client-1
